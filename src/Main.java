@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,12 +9,13 @@ public class Main {
     public static void main(String[] args) {
         int count = 0;
         int countLines = 0;
-        int countYandexbot = 0;
-        int countGooglebot = 0;
-        ArrayList<String[]> logs = new ArrayList<>();
+        Statistics statistics = new Statistics();
 
+        //ArrayList<String[]> logs = new ArrayList<>();
+        ArrayList<String> lines = new ArrayList<>();
 
         while (true) {
+
             String path = new Scanner(System.in).nextLine();
             //String path = "c://courses/access2.log";
             File file = new File(path);
@@ -21,13 +23,10 @@ public class Main {
             boolean isFile = file.isDirectory();
             if (!fileExists || isFile) {
                 System.out.println("Файл не существует или указанный путь является путём к папке");
-                continue;
+                //continue;
             } else {
                 count++;
                 System.out.println("Путь указан верно. Это файл номер " + count);
-                System.out.println();
-                System.out.println("Подсчет ");
-                System.out.println();
 
                 //Построчно читаем файл
                 try {
@@ -42,23 +41,22 @@ public class Main {
                             throw new OutOfMaxValueException("out of 1024 symbols in String");
                         }
                         //Делим строку на фрагменты, 6 элемент массива фрагмент User-Agent
-                        logs.add(line.split(" \"| \\[| -"));
-                    }
-                    for (int i = 0; i < logs.size(); i++) {
-                        //Делим User-Agent на фрагменты, и поиском из 1 определяем необходимые  запросы
-                        String[] fragment = logs.get(i)[6].split(";");
-                        if (fragment.length > 1) {
-                            if (fragment[1].contains("YandexBot")) {
-                                countYandexbot++;
-                            }
-                            if (fragment[1].contains("Googlebot")) {
-                                countGooglebot++;
-                            }
-                        }
-
+                        //logs.add(line.split(" \"| \\[| -"));
+                        lines.add(line);
                     }
 
-                    System.out.println("Всего строк " + countLines + "\nYandexBot " + countYandexbot + "\nGooglebot " + countGooglebot);
+                    //Проверка вывода Statistics
+                    for (int i = 0; i < lines.size(); i++) {
+                        LogEntry logs2 = new LogEntry(lines.get(i));
+                        statistics.addEnty(logs2);
+//                        System.out.println(new UserAgent(logs2.getUserAgent()));
+                    }
+                    System.out.println();
+                    System.out.println("Обьем часового трафика " + new DecimalFormat("0.#####").format(statistics.getTrafficRate()));
+                    System.out.println();
+                    System.out.println("Общее количество строк файла логов " + countLines);
+//
+
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
