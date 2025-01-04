@@ -55,6 +55,9 @@ public class Main {
                     System.out.println("Обьем часового трафика " + new DecimalFormat("0.#####").format(statistics.getTrafficRate()));
                     System.out.println();
                     System.out.println("Общее количество строк файла логов " + countLines);
+                    System.out.println(statistics.existPage.size());
+                    System.out.println(statistics.getStatsOfOs().keySet());
+                    System.out.println(statistics.getStatsOfOs().values());
 //
 
                 } catch (Exception ex) {
@@ -63,7 +66,5 @@ public class Main {
 
             }
         }
-
-
     }
 }
