@@ -56,8 +56,11 @@ public class Main {
                     System.out.println();
                     System.out.println("Общее количество строк файла логов " + countLines);
                     System.out.println(statistics.existPage.size());
+                    System.out.println(statistics.doesntExistPage.size());
                     System.out.println(statistics.getStatsOfOs().keySet());
                     System.out.println(statistics.getStatsOfOs().values());
+                    System.out.println(statistics.getStatsOfBrowsers().keySet());
+                    System.out.println(statistics.getStatsOfBrowsers().values());
 //
 
                 } catch (Exception ex) {
