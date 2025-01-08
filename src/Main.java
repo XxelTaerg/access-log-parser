@@ -61,6 +61,9 @@ public class Main {
                     System.out.println(statistics.getStatsOfOs().values());
                     System.out.println(statistics.getStatsOfBrowsers().keySet());
                     System.out.println(statistics.getStatsOfBrowsers().values());
+                    System.out.println(statistics.getAvgCountVisitors());
+                    System.out.println(statistics.getCountInvalidRequest());
+                    System.out.println(statistics.getAvgOnePerson());
 //
 
                 } catch (Exception ex) {
